@@ -6,24 +6,20 @@ public class Money {
     private final long amount;
     private final String currency;
 
-    public Money(long amount, String currency)
-    {
+    public Money(long amount, String currency) {
         this.amount = amount;
         this.currency = currency;
     }
 
-    public long getAmount()
-    {
+    public long getAmount() {
         return this.amount;
     }
 
-    public String getCurrency()
-    {
+    public String getCurrency() {
         return this.currency;
     }
 
-    public String getFormatted()
-    {
+    public String getFormatted() {
         BigDecimal payment = new BigDecimal(this.amount).movePointLeft(2);
         return String.format(payment.toString(), this.currency);
     }

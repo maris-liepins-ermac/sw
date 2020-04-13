@@ -1,6 +1,6 @@
 package com.homework.homework.api.driver.entity;
 
-import com.homework.homework.storage.EntityInterface;
+import com.homework.homework.storage.interfaces.EntityInterface;
 
 public class Driver implements EntityInterface {
     private final long id;

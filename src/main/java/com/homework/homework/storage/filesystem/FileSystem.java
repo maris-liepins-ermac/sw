@@ -6,7 +6,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 public class FileSystem {
-    private String storageLocation = "." + File.separator + "storage";
+    private final String storageLocation = "." + File.separator + "storage";
 
     public FileSystem() {
         Boolean tmpDirectory = new File(storageLocation).mkdirs();
@@ -60,6 +60,5 @@ public class FileSystem {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        ;
     }
 }

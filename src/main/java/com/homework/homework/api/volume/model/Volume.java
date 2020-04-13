@@ -6,24 +6,20 @@ public class Volume {
     private final long amount;
     private final String unitOfMeasurement;
 
-    public Volume(long amount, String unitOfMeasurement)
-    {
+    public Volume(long amount, String unitOfMeasurement) {
         this.amount = amount;
         this.unitOfMeasurement = unitOfMeasurement;
     }
 
-    public long getAmount()
-    {
+    public long getAmount() {
         return this.amount;
     }
 
-    public String getUnitOfMeasurement()
-    {
+    public String getUnitOfMeasurement() {
         return this.unitOfMeasurement;
     }
 
-    public String getFormatted()
-    {
+    public String getFormatted() {
         BigDecimal payment = new BigDecimal(this.amount).movePointLeft(1);
         return String.format(payment.toString(), this.unitOfMeasurement);
     }

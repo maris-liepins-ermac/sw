@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class FuelConsumptionController {
 
     @PostMapping(value = "/register", consumes = "application/json", produces = "application/json")
-    public void registerConsumptionRecord()
-    {
+    public void registerConsumptionRecord() {
     }
 }
