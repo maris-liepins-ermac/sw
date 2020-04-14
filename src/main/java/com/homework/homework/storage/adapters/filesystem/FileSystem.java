@@ -1,4 +1,4 @@
-package com.homework.homework.storage.filesystem;
+package com.homework.homework.storage.adapters.filesystem;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;

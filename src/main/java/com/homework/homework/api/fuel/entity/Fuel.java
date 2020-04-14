@@ -7,14 +7,13 @@ import com.homework.homework.storage.interfaces.EntityInterface;
 import java.util.Date;
 
 public class Fuel implements EntityInterface {
-    private final long id;
+    private long id;
     private String fuelType;
     private Money pricePerLiter;
     private Volume volume;
     private Date date;
 
-    public Fuel(long id, String fuelType, Money pricePerLiter, Volume volume, Date date) {
-        this.id = id;
+    public Fuel( String fuelType, Money pricePerLiter, Volume volume, Date date) {
         this.fuelType = fuelType;
         this.pricePerLiter = pricePerLiter;
         this.volume = volume;
@@ -23,6 +22,10 @@ public class Fuel implements EntityInterface {
 
     public long getId() {
         return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getFuelType() {

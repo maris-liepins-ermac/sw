@@ -3,7 +3,7 @@ package com.homework.homework.api.driver.entity;
 import com.homework.homework.storage.interfaces.EntityInterface;
 
 public class Driver implements EntityInterface {
-    private final long id;
+    private long id;
     private final String name;
     private final String surname;
 
@@ -15,6 +15,11 @@ public class Driver implements EntityInterface {
 
     public long getId() {
         return id;
+    }
+
+    @Override
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getName() {

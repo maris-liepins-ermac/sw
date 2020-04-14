@@ -1,7 +1,7 @@
 package com.homework.homework.storage;
 
+import com.homework.homework.storage.adapters.filesystem.FileSystemStorageAdapter;
 import com.homework.homework.storage.exeption.StorageAdapterNotFoundException;
-import com.homework.homework.storage.filesystem.FileSystemStorageAdapter;
 import com.homework.homework.storage.interfaces.StorageAdapterInterface;
 
 import java.io.FileInputStream;
@@ -21,7 +21,6 @@ public class StorageResolver {
 
     public StorageAdapterInterface resolve() throws StorageAdapterNotFoundException {
         String storage = this.prop.getProperty("storage.adapter");
-        System.out.println(storage);
         StorageAdapterInterface adapter;
         switch (storage) {
             case "filesystem":

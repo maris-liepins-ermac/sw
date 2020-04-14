@@ -10,8 +10,10 @@ import com.homework.homework.api.volume.model.Volume;
 import com.homework.homework.commandbus.exception.HandlerNotFoundException;
 import com.homework.homework.commandbus.interfaces.CommandHandlerInterface;
 import com.homework.homework.commandbus.interfaces.CommandInterface;
+import com.homework.homework.storage.exeption.StorageAdapterNotFoundException;
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
 import java.util.Date;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -25,7 +27,6 @@ class CommandBusConfTest {
         Date date = new Date();
 
         Fuel fuel = new Fuel(
-            1,
             "FuelType",
             pricePerLiter,
             volume,
@@ -41,7 +42,7 @@ class CommandBusConfTest {
         try {
             CommandHandlerInterface handler = CommandBusConf.matchHandler(command);
             assertTrue(handler instanceof RegisterFuelConsumptionCommandHandler, "Found handler should be instance of RegisterFuelConsumptionCommandHandler");
-        } catch (HandlerNotFoundException exception) {
+        } catch (HandlerNotFoundException | IOException | StorageAdapterNotFoundException exception) {
             fail("Exception not expected.");
         }
     }

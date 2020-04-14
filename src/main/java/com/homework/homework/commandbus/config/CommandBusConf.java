@@ -4,10 +4,13 @@ import com.homework.homework.api.fuel.domain.handler.RegisterFuelConsumptionComm
 import com.homework.homework.commandbus.exception.HandlerNotFoundException;
 import com.homework.homework.commandbus.interfaces.CommandHandlerInterface;
 import com.homework.homework.commandbus.interfaces.CommandInterface;
+import com.homework.homework.storage.exeption.StorageAdapterNotFoundException;
+
+import java.io.IOException;
 
 public class CommandBusConf {
 
-    public static CommandHandlerInterface matchHandler(CommandInterface command) throws HandlerNotFoundException {
+    public static CommandHandlerInterface matchHandler(CommandInterface command) throws HandlerNotFoundException, IOException, StorageAdapterNotFoundException {
         String className = command.getClass().getSimpleName();
         CommandHandlerInterface handler;
 
