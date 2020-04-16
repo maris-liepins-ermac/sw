@@ -4,8 +4,7 @@ public class RowIdSearchResult {
     private boolean isFound;
     private long rowId;
 
-    public RowIdSearchResult(boolean isFound, long id)
-    {
+    public RowIdSearchResult(boolean isFound, long id) {
         this.isFound = isFound;
         this.rowId = id;
     }

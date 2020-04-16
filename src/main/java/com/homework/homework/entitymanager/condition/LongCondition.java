@@ -1,19 +1,20 @@
 package com.homework.homework.entitymanager.condition;
+
 import com.homework.homework.entitymanager.condition.exception.ConditionNotExecutableException;
 import com.homework.homework.storage.interfaces.EntityInterface;
+
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-public class LongCondition implements ConditionInterface{
+public class LongCondition implements ConditionInterface {
 
     private Long value;
     private String paramToCompareTo;
     private Method method;
 
     public LongCondition(Long value, String methodToUse, String paramToCompareTo)
-        throws ConditionNotExecutableException
-    {
+        throws ConditionNotExecutableException {
         this.value = value;
         this.paramToCompareTo = paramToCompareTo;
         Class<?> parameterTypes = EntityInterface.class;

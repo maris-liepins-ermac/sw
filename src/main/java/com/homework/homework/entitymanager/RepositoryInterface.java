@@ -10,7 +10,9 @@ import java.util.ArrayList;
 
 public interface RepositoryInterface {
     long getLastId();
+
     EntityInterface find(long id) throws ConditionNotExecutableException, CommandExecutionFailedException, NoRecordsFoundException;
+
     ArrayList<EntityInterface> findAllByConditions(ArrayList<ConditionInterface> conditions) throws ConditionNotExecutableException, NoRecordsFoundException;
 
 }

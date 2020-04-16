@@ -8,7 +8,9 @@ import java.util.ArrayList;
 
 public interface StorageRepositoryInterface {
     long getLastId();
+
     EntityInterface find(ArrayList<ConditionInterface> conditions) throws ConditionNotExecutableException, NoRecordsFoundException;
+
     ArrayList<EntityInterface> findAllByConditions(ArrayList<ConditionInterface> conditions) throws ConditionNotExecutableException, NoRecordsFoundException;
 
 }

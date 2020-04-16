@@ -5,6 +5,8 @@ import java.math.BigDecimal;
 public class Money {
     private final long amount;
     private final String currency;
+    public static final long MONEY_MAX_BOUND = 99999999;
+    public static final long MONEY_MIN_BOUND = 0;
 
     public Money(long amount, String currency) {
         this.amount = amount;
@@ -24,8 +26,7 @@ public class Money {
         return String.format(payment.toString(), this.currency);
     }
 
-    public static Money add(Money left, Money right)
-    {
+    public static Money add(Money left, Money right) {
         return new Money(left.amount + right.amount, left.getCurrency());
     }
 }

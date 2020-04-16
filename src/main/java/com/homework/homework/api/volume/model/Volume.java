@@ -6,6 +6,9 @@ public class Volume {
     private final long amount;
     private final String unitOfMeasurement;
 
+    public static final long VOLUME_MAX_BOUND = 99999999;
+    public static final long VOLUME_MIN_BOUND = 0;
+
     public Volume(long amount, String unitOfMeasurement) {
         this.amount = amount;
         this.unitOfMeasurement = unitOfMeasurement;

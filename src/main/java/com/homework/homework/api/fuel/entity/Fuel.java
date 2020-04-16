@@ -5,7 +5,6 @@ import com.homework.homework.api.volume.model.Volume;
 import com.homework.homework.storage.interfaces.EntityInterface;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 public class Fuel implements EntityInterface {
     private long id = -1;

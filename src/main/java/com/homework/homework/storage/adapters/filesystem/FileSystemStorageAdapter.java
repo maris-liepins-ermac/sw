@@ -21,8 +21,7 @@ public class FileSystemStorageAdapter implements StorageAdapterInterface {
         this.gson = new Gson();
     }
 
-    public ArrayList<String> getEntities(Class entity)
-    {
+    public ArrayList<String> getEntities(Class entity) {
         this.prepareFile(entity);
         return this.entities;
     }
@@ -37,7 +36,7 @@ public class FileSystemStorageAdapter implements StorageAdapterInterface {
         RowIdSearchResult result = FileOperationCommands.getEntityRowNumber(entity, entities);
 
         if (result.isFound()) {
-                this.entities.set((int) result.getRowId(), gson.toJson(entity));
+            this.entities.set((int) result.getRowId(), gson.toJson(entity));
         } else {
             entity.setId(FileOperationCommands.getLastId(entity.getClass(), entities) + 1);
             this.entities.add(gson.toJson(entity));
