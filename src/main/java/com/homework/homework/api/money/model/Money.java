@@ -23,4 +23,9 @@ public class Money {
         BigDecimal payment = new BigDecimal(this.amount).movePointLeft(2);
         return String.format(payment.toString(), this.currency);
     }
+
+    public static Money add(Money left, Money right)
+    {
+        return new Money(left.amount + right.amount, left.getCurrency());
+    }
 }

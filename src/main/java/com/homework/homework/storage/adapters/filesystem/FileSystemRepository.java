@@ -1,29 +1,45 @@
 package com.homework.homework.storage.adapters.filesystem;
 
-import com.google.gson.Gson;
+import com.homework.homework.entitymanager.condition.ConditionInterface;
+import com.homework.homework.entitymanager.condition.exception.ConditionNotExecutableException;
+import com.homework.homework.entitymanager.exception.NoRecordsFoundException;
+import com.homework.homework.storage.adapters.filesystem.fileoperations.FileOperationCommands;
 import com.homework.homework.storage.interfaces.EntityInterface;
-import com.homework.homework.storage.interfaces.RepositoryInterface;
+import com.homework.homework.storage.interfaces.StorageRepositoryInterface;
 
-import java.lang.reflect.Type;
+import java.util.ArrayList;
 
-public class FileSystemRepository implements RepositoryInterface {
+
+public class FileSystemRepository implements StorageRepositoryInterface {
 
     private final FileSystemStorageAdapter fileSystemStorageAdapter;
     private final Class entityClassName;
-    private final Gson gson;
 
     public FileSystemRepository(Class entityClassName) {
         this.entityClassName = entityClassName;
         this.fileSystemStorageAdapter = new FileSystemStorageAdapter();
         this.fileSystemStorageAdapter.prepareFile(entityClassName);
-        this.gson = new Gson();
     }
 
     @Override
     public long getLastId() {
-        if (null == this.fileSystemStorageAdapter) {
-            return 0;
-        }
-        return this.fileSystemStorageAdapter.getLastId(this.entityClassName);
+        return FileOperationCommands.getLastId(this.entityClassName, this.fileSystemStorageAdapter.getEntities(entityClassName));
     }
+
+    @Override
+    public EntityInterface find(
+        ArrayList<ConditionInterface> conditions
+    ) throws ConditionNotExecutableException, NoRecordsFoundException {
+        FileOperationCommands commands = new FileOperationCommands();
+        return commands.find(entityClassName, conditions, this.fileSystemStorageAdapter.getEntities(entityClassName));
+    }
+
+    @Override
+    public ArrayList<EntityInterface> findAllByConditions(
+        ArrayList<ConditionInterface> conditions
+    ) throws ConditionNotExecutableException, NoRecordsFoundException {
+        FileOperationCommands commands = new FileOperationCommands();
+        return commands.findAllByConditions(entityClassName, conditions, this.fileSystemStorageAdapter.getEntities(entityClassName));
+    }
+
 }

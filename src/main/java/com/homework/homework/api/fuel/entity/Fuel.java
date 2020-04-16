@@ -4,20 +4,23 @@ import com.homework.homework.api.money.model.Money;
 import com.homework.homework.api.volume.model.Volume;
 import com.homework.homework.storage.interfaces.EntityInterface;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class Fuel implements EntityInterface {
-    private long id;
+    private long id = -1;
     private String fuelType;
     private Money pricePerLiter;
     private Volume volume;
-    private Date date;
+    private LocalDate date;
+    private long driverId;
 
-    public Fuel( String fuelType, Money pricePerLiter, Volume volume, Date date) {
+    public Fuel(String fuelType, Money pricePerLiter, Volume volume, LocalDate date, long driverId) {
         this.fuelType = fuelType;
         this.pricePerLiter = pricePerLiter;
         this.volume = volume;
         this.date = date;
+        this.driverId = driverId;
     }
 
     public long getId() {
@@ -40,7 +43,7 @@ public class Fuel implements EntityInterface {
         return volume;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
@@ -56,7 +59,22 @@ public class Fuel implements EntityInterface {
         this.volume = volume;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDate date) {
         this.date = date;
+    }
+
+    public long getDriverId() {
+        return driverId;
+    }
+
+    public void setDriverId(long driverId) {
+        this.driverId = driverId;
+    }
+
+    public Money totalCost() {
+        return new Money(
+            (this.pricePerLiter.getAmount() * this.volume.getAmount()),
+            this.pricePerLiter.getCurrency()
+        );
     }
 }

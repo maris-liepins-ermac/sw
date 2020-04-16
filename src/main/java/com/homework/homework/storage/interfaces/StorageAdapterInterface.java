@@ -4,5 +4,5 @@ import java.util.HashMap;
 
 public interface StorageAdapterInterface {
     void persist(EntityInterface entity);
-    RepositoryInterface getRepository(Class entityClassName);
+    StorageRepositoryInterface getRepository(Class entityClassName);
 }

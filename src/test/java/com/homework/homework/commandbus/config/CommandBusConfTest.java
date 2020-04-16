@@ -14,6 +14,7 @@ import com.homework.homework.storage.exeption.StorageAdapterNotFoundException;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.Date;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -24,13 +25,14 @@ class CommandBusConfTest {
     {
         Money pricePerLiter = new Money(123, CurrencyEnum.EUR);
         Volume volume = new Volume(123, FuelTypeEnum.TYPE_95);
-        Date date = new Date();
+        LocalDate date =  LocalDate.now();
 
         Fuel fuel = new Fuel(
             "FuelType",
             pricePerLiter,
             volume,
-            date
+            date,
+            12345
         );
         return fuel;
     }

@@ -3,7 +3,6 @@ package com.homework.homework.entitymanager;
 import com.homework.homework.storage.StorageResolver;
 import com.homework.homework.storage.exeption.StorageAdapterNotFoundException;
 import com.homework.homework.storage.interfaces.EntityInterface;
-import com.homework.homework.storage.interfaces.RepositoryInterface;
 import com.homework.homework.storage.interfaces.StorageAdapterInterface;
 
 import java.io.IOException;
