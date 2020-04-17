@@ -48,4 +48,11 @@ public class Repository implements RepositoryInterface {
     ) throws ConditionNotExecutableException, NoRecordsFoundException {
         return this.repository.findAllByConditions(conditions);
     }
+
+    @Override
+    public ArrayList<EntityInterface> findAll() throws NoRecordsFoundException, ConditionNotExecutableException {
+        ArrayList<ConditionInterface> conditions = new ArrayList<>();
+        return this.repository.findAllByConditions(conditions);
+    }
+
 }

@@ -23,7 +23,7 @@ public class Money {
 
     public String getFormatted() {
         BigDecimal payment = new BigDecimal(this.amount).movePointLeft(2);
-        return String.format(payment.toString(), this.currency);
+        return String.format("%s %s",payment.toString(), this.currency);
     }
 
     public static Money add(Money left, Money right) {

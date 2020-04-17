@@ -10,6 +10,8 @@ import com.homework.homework.storage.interfaces.EntityInterface;
 import com.homework.homework.validation.ConstraintInterface;
 import com.homework.homework.validation.exception.ValidationFailedException;
 
+import java.util.Objects;
+
 public class FuelEntityConstraint implements ConstraintInterface {
     public void validate(EntityInterface entity) throws ValidationFailedException {
         this.validateInstance(entity);
@@ -18,6 +20,7 @@ public class FuelEntityConstraint implements ConstraintInterface {
         this.validateFuelType(castedEntity);
         this.validatePricePerLiter(castedEntity);
         this.validateVolume(castedEntity);
+        this.validateDate(castedEntity);
         this.validateDriverId(castedEntity);
     }
 
@@ -70,12 +73,18 @@ public class FuelEntityConstraint implements ConstraintInterface {
     }
 
     private void validateDriverId(Fuel entity) throws ValidationFailedException {
-        if (entity.getDriverId() < 0) {
-            throw new ValidationFailedException("Negative driver id.");
+        if (entity.getDriverId() < 1) {
+            throw new ValidationFailedException("Driver id out of bounds or not set.");
         }
 
         if (entity.getDriverId() > 999999) {
             throw new ValidationFailedException("Driver id out of bounds.");
+        }
+    }
+
+    private void validateDate(Fuel entity) throws ValidationFailedException {
+        if(null == entity.getDate()){
+            throw new ValidationFailedException("Date is not set.");
         }
     }
 }

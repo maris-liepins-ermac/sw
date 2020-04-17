@@ -11,8 +11,9 @@ import java.util.ArrayList;
 public interface RepositoryInterface {
     long getLastId();
 
-    EntityInterface find(long id) throws ConditionNotExecutableException, CommandExecutionFailedException, NoRecordsFoundException;
+    EntityInterface find(long id) throws ConditionNotExecutableException, NoRecordsFoundException;
 
     ArrayList<EntityInterface> findAllByConditions(ArrayList<ConditionInterface> conditions) throws ConditionNotExecutableException, NoRecordsFoundException;
+    ArrayList<EntityInterface> findAll() throws NoRecordsFoundException, ConditionNotExecutableException;
 
 }

@@ -4,7 +4,9 @@ import com.homework.homework.api.money.model.Money;
 import com.homework.homework.api.volume.model.Volume;
 import com.homework.homework.storage.interfaces.EntityInterface;
 
+import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
+import java.util.Objects;
 
 public class Fuel implements EntityInterface {
     private long id = -1;

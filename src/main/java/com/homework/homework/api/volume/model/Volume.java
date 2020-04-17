@@ -24,6 +24,6 @@ public class Volume {
 
     public String getFormatted() {
         BigDecimal payment = new BigDecimal(this.amount).movePointLeft(1);
-        return String.format(payment.toString(), this.unitOfMeasurement);
+        return String.format("%s %s", payment.toString(), this.unitOfMeasurement);
     }
 }
