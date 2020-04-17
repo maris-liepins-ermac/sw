@@ -75,11 +75,15 @@ public class FileOperationCommands {
 
         for (int i = 0; i < entities.size(); i++) {
             EntityInterface entityToCheck = gson.fromJson(entities.get(i), (Type) entityClassName);
-            if (this.checkConditions(entityToCheck, conditions)) {
-                retrievedList.add(entityToCheck);
+            try {
+                if (this.checkConditions(entityToCheck, conditions)) {
+                    retrievedList.add(entityToCheck);
+                }
+            } catch (ConditionNotExecutableException e) {
+                continue;
             }
-        }
 
+        }
         if (0 == retrievedList.size()) {
             throw new NoRecordsFoundException(this.NO_RECORD_FOUND);
         }
