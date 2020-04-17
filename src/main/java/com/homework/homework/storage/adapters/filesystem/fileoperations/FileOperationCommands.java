@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 public class FileOperationCommands {
 
-    private String NO_RECORD_FOUND = "Record was not found in the database";
+    private String NO_RECORD_FOUND = "No records found in the database";
 
     public static RowIdSearchResult getEntityRowNumber(
         EntityInterface entity,

@@ -4,6 +4,10 @@ import com.homework.homework.api.fuel.domain.command.RegisterFuelConsumptionComm
 import com.homework.homework.api.fuel.entity.Fuel;
 import com.homework.homework.api.fuel.repository.FuelRepository;
 import com.homework.homework.api.fuel.service.CalculateTotalSpentAmountService;
+import com.homework.homework.api.fuel.service.ConvertFuelToConsumptionRecordService;
+import com.homework.homework.api.fuel.service.FuelConsumptionByMonthService;
+import com.homework.homework.api.fuel.valueobject.FuelConsumptionRecord;
+import com.homework.homework.api.fuel.valueobject.FuelGroupedByFuelType;
 import com.homework.homework.api.fuel.valueobject.MonthAndDriverValueObject;
 import com.homework.homework.api.money.model.Money;
 import com.homework.homework.api.response.*;
@@ -21,6 +25,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 @RestController
 public class FuelConsumptionController {
@@ -124,5 +129,76 @@ public class FuelConsumptionController {
 
     }
 
+    @GetMapping("/reports/find/consumption-records-by-month/{month}/{year}")
+    ApiResponseInterface consumptionRecordsByMonth(
+            @PathVariable Integer month,
+            @PathVariable Integer year,
+            @RequestParam(required = false) Integer driverId
+    ) {
+        MonthAndDriverValueObject monthAndDriver;
+        if (driverId == null || driverId < 1) {
+            monthAndDriver = new MonthAndDriverValueObject(year, month);
+        } else {
+            monthAndDriver = new MonthAndDriverValueObject(year, month, driverId);
+        }
+
+        ArrayList<EntityInterface> entities = null;
+        ArrayList<FuelConsumptionRecord> convertedEntities = null;
+
+        try {
+            entities = this.fuelRepository.getRecordsByMonths(monthAndDriver);
+            convertedEntities = ConvertFuelToConsumptionRecordService.convertEntities(entities);
+        } catch (ConditionNotExecutableException | NoRecordsFoundException e) {
+            return new ApiErrorResponse(
+                    HttpStatus.BAD_REQUEST,
+                    e.getMessage(),
+                    "/reports/find/consumption-records-by-month/{month}/{year}"
+            );
+        }
+
+        return new ApiSuccessResponseWithObject<ArrayList<FuelConsumptionRecord>>(
+                HttpStatus.OK,
+                "/reports/find/consumption-records-by-month/{month}/{year}",
+                convertedEntities
+        );
+
+    }
+
+    @GetMapping("/reports/find/records-by-fuel-and-month/{month}/{year}")
+    ApiResponseInterface consumptionRecordsByFuelAndMonth(
+            @PathVariable Integer month,
+            @PathVariable Integer year,
+            @RequestParam(required = false) Integer driverId
+    ) {
+        MonthAndDriverValueObject monthAndDriver;
+        if (driverId == null || driverId < 1) {
+            monthAndDriver = new MonthAndDriverValueObject(year, month);
+        } else {
+            monthAndDriver = new MonthAndDriverValueObject(year, month, driverId);
+        }
+
+        ArrayList<EntityInterface> entities = null;
+        HashMap<String, FuelGroupedByFuelType> groupedFuelEntities = null;
+
+        FuelConsumptionByMonthService fuelService = new FuelConsumptionByMonthService();
+
+        try {
+            entities = this.fuelRepository.getRecordsByMonths(monthAndDriver);
+            groupedFuelEntities = fuelService.calculate(entities);
+        } catch (ConditionNotExecutableException | NoRecordsFoundException e) {
+            return new ApiErrorResponse(
+                    HttpStatus.BAD_REQUEST,
+                    e.getMessage(),
+                    "/reports/find/consumption-records-by-month/{month}/{year}"
+            );
+        }
+
+        return new ApiSuccessResponseWithObject<HashMap<String, FuelGroupedByFuelType>>(
+                HttpStatus.OK,
+                "/reports/find/consumption-records-by-month/{month}/{year}",
+                groupedFuelEntities
+        );
+
+    }
 
 }

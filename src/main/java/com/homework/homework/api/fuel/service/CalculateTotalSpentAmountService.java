@@ -13,11 +13,7 @@ public class CalculateTotalSpentAmountService {
         Money totalAmount = new Money(0, CurrencyEnum.EUR);
         for (EntityInterface entity : entities) {
             Fuel castedEntity = (Fuel) entity;
-            Money entityCost = new Money(
-                    castedEntity.getPricePerLiter().getAmount() * castedEntity.getVolume().getAmount(),
-                    CurrencyEnum.EUR
-            );
-            totalAmount = Money.add(totalAmount, entityCost);
+            totalAmount = Money.add(totalAmount, castedEntity.totalCost());
         }
 
         return totalAmount;
