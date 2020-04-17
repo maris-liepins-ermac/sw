@@ -1,0 +1,186 @@
+{
+	"info": {
+		"_postman_id": "b12d89f8-d64a-4581-b627-8d7fa03cb842",
+		"name": "Swedbank",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Add single report",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"fuelType\": \"98\",\r\n    \"pricePerLiter\": {\r\n        \"amount\": 13,\r\n        \"currency\": \"EUR\"\r\n    },\r\n    \"volume\": {\r\n        \"amount\": 13,\r\n        \"unitOfMeasurement\": \"L\"\r\n    },\r\n    \"date\": \"2020-05-17\",\r\n    \"driverId\": 12347\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/reports/add",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"reports",
+						"add"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add bulk of reports",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/C:/Users/Maris L/Desktop/FuelBulk.txt"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/reports/add/bulk",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"reports",
+						"add",
+						"bulk"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Find all reports",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/reports/find",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"reports",
+						"find"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Find one by ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/reports/find/3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"reports",
+						"find",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Money spent by month",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/reports/find/money-spent-by-month/5/2020",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"reports",
+						"find",
+						"money-spent-by-month",
+						"5",
+						"2020"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Consumption records by month",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/reports/find/consumption-records-by-month/5/2020",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"reports",
+						"find",
+						"consumption-records-by-month",
+						"5",
+						"2020"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Consumption records grouped by fuel and month",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/reports/find/records-by-fuel-and-month/5/2020",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"reports",
+						"find",
+						"records-by-fuel-and-month",
+						"5",
+						"2020"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

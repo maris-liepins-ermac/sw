@@ -2,12 +2,15 @@ package com.homework.homework.api;
 
 import com.homework.homework.api.fuel.domain.command.RegisterFuelConsumptionCommand;
 import com.homework.homework.api.fuel.entity.Fuel;
+import com.homework.homework.api.fuel.exceptions.UnableToImportFileFuelReportsException;
 import com.homework.homework.api.fuel.repository.FuelRepository;
 import com.homework.homework.api.fuel.service.CalculateTotalSpentAmountService;
 import com.homework.homework.api.fuel.service.ConvertFuelToConsumptionRecordService;
 import com.homework.homework.api.fuel.service.FuelConsumptionByMonthService;
+import com.homework.homework.api.fuel.service.ImportFuelReportService;
 import com.homework.homework.api.fuel.valueobject.FuelConsumptionRecord;
 import com.homework.homework.api.fuel.valueobject.FuelGroupedByFuelType;
+import com.homework.homework.api.fuel.valueobject.FuelReportImportResult;
 import com.homework.homework.api.fuel.valueobject.MonthAndDriverValueObject;
 import com.homework.homework.api.money.model.Money;
 import com.homework.homework.api.response.*;
@@ -17,15 +20,22 @@ import com.homework.homework.entitymanager.Repository;
 import com.homework.homework.entitymanager.RepositoryInterface;
 import com.homework.homework.entitymanager.condition.exception.ConditionNotExecutableException;
 import com.homework.homework.entitymanager.exception.NoRecordsFoundException;
+import com.homework.homework.filesystem.ReadFromFile;
+import com.homework.homework.filesystem.exceptions.UnableToReadFromFileException;
 import com.homework.homework.storage.exeption.StorageAdapterNotFoundException;
 import com.homework.homework.storage.interfaces.EntityInterface;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 @RestController
 public class FuelConsumptionController {
@@ -78,7 +88,7 @@ public class FuelConsumptionController {
         );
     }
 
-    @PostMapping(value = "/reports/add", consumes = "application/json", produces = "application/json")
+    @PutMapping(value = "/reports/add", consumes = "application/json", produces = "application/json")
     public ApiResponseInterface registerConsumptionRecord(@Valid @RequestBody Fuel newFuel) {
         CommandBus commandBus = new CommandBus();
         try {
@@ -92,6 +102,26 @@ public class FuelConsumptionController {
             );
         }
         return new ApiSuccessResponse(HttpStatus.CREATED, "/reports/add");
+    }
+
+    @PostMapping("/reports/add/bulk")
+    public ApiResponseInterface handleFileUpload(@RequestParam("file") MultipartFile file) {
+        ImportFuelReportService importService = new ImportFuelReportService();
+        FuelReportImportResult result = null;
+        try {
+            result = importService.importFromFile(file);
+        } catch (Exception e) {
+            return new ApiErrorResponse(
+                    HttpStatus.BAD_REQUEST,
+                    e.getMessage(),
+                    "/reports/add/bulk"
+            );
+        }
+        return new ApiSuccessResponseWithObject<FuelReportImportResult>(
+                HttpStatus.OK,
+                "/reports/add/bulk",
+                result
+        );
     }
 
 

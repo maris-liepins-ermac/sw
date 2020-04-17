@@ -6,6 +6,7 @@ import com.homework.homework.api.fuel.entity.Fuel;
 import com.homework.homework.api.fuel.enums.FuelTypeEnum;
 import com.homework.homework.api.money.enums.CurrencyEnum;
 import com.homework.homework.api.money.model.Money;
+import com.homework.homework.api.volume.enums.VolumeTypeEnum;
 import com.homework.homework.api.volume.model.Volume;
 import com.homework.homework.commandbus.exception.HandlerNotFoundException;
 import com.homework.homework.commandbus.interfaces.CommandHandlerInterface;
@@ -24,7 +25,7 @@ class CommandBusConfTest {
     private Fuel generateFuelObject()
     {
         Money pricePerLiter = new Money(123, CurrencyEnum.EUR);
-        Volume volume = new Volume(123, FuelTypeEnum.TYPE_95);
+        Volume volume = new Volume(123, VolumeTypeEnum.LITER);
         LocalDate date =  LocalDate.now();
 
         Fuel fuel = new Fuel(

@@ -228,7 +228,7 @@ class FuelEntityConstraintTest {
             this.fuelEntityConstraint.validate(fuel);
             fail("Exception expected.");
         } catch (ValidationFailedException exception) {
-            assertEquals(exception.getMessage(), "Negative driver id.");
+            assertEquals(exception.getMessage(), "Driver id out of bounds or not set.");
         }
 
         fuel = new Fuel(
