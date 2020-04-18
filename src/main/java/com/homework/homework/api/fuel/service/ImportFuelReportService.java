@@ -32,8 +32,8 @@ public class ImportFuelReportService {
         for (String line : lines) {
             try{
                 Fuel fuel = this.gson.fromJson(line, Fuel.class);
-                successfulImports++;
                 this.commandBus.handle(new RegisterFuelConsumptionCommand(fuel));
+                successfulImports++;
             }catch (Exception e)
             {
                 failedImports.add(line);
